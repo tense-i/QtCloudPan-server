@@ -1,0 +1,2 @@
+server_port: "8080"
+database_dsn: "root:1352446@tcp(127.0.0.1:3306)/QtCloudPan"
