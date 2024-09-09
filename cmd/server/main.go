@@ -14,6 +14,7 @@ func main() {
 	// 注册 HTTP 路由
 	http.HandleFunc("/cloudObj/register", handler.RegisterHandler)
 	http.HandleFunc("/cloudObj/login", handler.LoginHandler)
+	http.HandleFunc("/cloudObj/myfiles/cound", handler.JWTMiddleware(handler.CoundHandler))
 
 	// 启动服务器
 	fmt.Println("Server is listening on port", config.AppConfig.ServerPort)
