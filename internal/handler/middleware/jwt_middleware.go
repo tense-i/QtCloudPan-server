@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func JWTMiddleware(next http.HandlerFunc) http.HandlerFunc {
@@ -23,6 +24,13 @@ func JWTMiddleware(next http.HandlerFunc) http.HandlerFunc {
 		claims, err := utils.ValidateToken(token)
 		if err != nil {
 			utils.RespondWithError(w, http.StatusUnauthorized, "Invalid token")
+			return
+		}
+
+		//  claims中提取过期时间
+		println(claims.ExpiresAt)
+		if claims.ExpiresAt != nil && claims.ExpiresAt.Time.Before(time.Now()) {
+			utils.RespondWithError(w, http.StatusUnauthorized, "Token expired")
 			return
 		}
 

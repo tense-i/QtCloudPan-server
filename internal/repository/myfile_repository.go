@@ -64,6 +64,15 @@ func ListFile(username string) ListResponse {
 				CreateTime: "2021-01-03 12:00:00",
 				Type:       "mp4",
 			},
+			{
+				Username:   username,
+				Url:        "http://www.example.com/file4",
+				Size:       1,
+				FileName:   "file4",
+				Pv:         1000,
+				CreateTime: "2021-01-04 12:00:00",
+				Type:       "zip",
+			},
 		},
 		Code: 1,
 	}
