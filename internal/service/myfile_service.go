@@ -90,3 +90,23 @@ func ListFile(req ListRequest, method string) ListResponse {
 		Code: listResp.Code,
 	}
 }
+
+type ShareRequest struct {
+	Username string `json:"username"`
+	Filename string `json:"filename"`
+	FileMd5  string `json:"filemd5"`
+}
+type ShareResponse struct {
+	Code        int `json:"code"`
+	ShareStatus int `json:"shareStatus"`
+}
+
+func ShareFile(req ShareRequest) ShareResponse {
+	// 调用数据访问层的分享逻辑
+	res := repository.ShareFile(req.Username, req.Filename, req.FileMd5)
+	fmt.Println(res)
+	return ShareResponse{
+		Code:        res.Code,
+		ShareStatus: res.ShareStatus,
+	}
+}

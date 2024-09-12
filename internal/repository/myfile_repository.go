@@ -77,3 +77,23 @@ func ListFile(username string) ListResponse {
 		Code: 1,
 	}
 }
+
+type ShareResponse struct {
+	Code        int `json:"code"`
+	ShareStatus int `json:"shareStatus"`
+}
+type ShareRequest struct {
+	Username string `json:"username"`
+	Filename string `json:"filename"`
+	FileMd5  string `json:"filemd5"`
+}
+
+func ShareFile(username, filename, filemd5 string) ShareResponse {
+	// 在这里处理分享文件逻辑
+
+	// 这里只是一个示例，实际上可能会更复杂
+	return ShareResponse{
+		Code:        1,
+		ShareStatus: 1,
+	}
+}

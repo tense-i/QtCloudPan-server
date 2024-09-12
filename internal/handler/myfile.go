@@ -60,3 +60,28 @@ func ListHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(response)
 	utils.RespondWithJSON(w, http.StatusOK, response)
 }
+
+func ShareFileHandler(w http.ResponseWriter, r *http.Request) {
+	// 只允许 GET 请求
+	//if r.Method != http.MethodGet {
+	//	utils.RespondWithError(w, http.StatusMethodNotAllowed, "Only Get method is allowed")
+	//	return
+	//}
+
+	fmt.Println("ShareFileHandler")
+
+	var req service.ShareRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+
+		fmt.Println(err)
+		utils.RespondWithError(w, http.StatusBadRequest, "Invalid JSON format")
+		return
+	}
+
+	fmt.Println(req)
+
+	// 调用服务层的分享逻辑
+	response := service.ShareFile(req)
+	fmt.Println(response)
+	utils.RespondWithJSON(w, http.StatusOK, response)
+}

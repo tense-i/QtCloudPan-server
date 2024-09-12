@@ -17,6 +17,7 @@ func main() {
 	http.HandleFunc("/cloudObj/login", handler.LoginHandler)
 	http.HandleFunc("/cloudObj/myfiles/count", middleware.JWTMiddleware(handler.CoundHandler))
 	http.HandleFunc("/cloudObj/myfiles/list/", middleware.JWTMiddleware(handler.ListHandler))
+	http.HandleFunc("/cloudObj/sharefile", middleware.JWTMiddleware(handler.ShareFileHandler))
 
 	// 启动服务器
 	fmt.Println("Server is listening on port", config.AppConfig.ServerPort)
