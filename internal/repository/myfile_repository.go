@@ -1,5 +1,11 @@
 package repository
 
+import (
+	"QtCloudPan/internal/Model"
+	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
+)
+
 type CountResponse struct {
 	Count int `json:"count"`
 	Code  int `json:"code"`
@@ -95,5 +101,62 @@ func ShareFile(username, filename, filemd5 string) ShareResponse {
 	return ShareResponse{
 		Code:        1,
 		ShareStatus: 1,
+	}
+}
+
+type DeleteResponse struct {
+	Code         int `json:"code"`
+	DeleteStatus int `json:"deleteStatus"`
+}
+
+func DeleteFiles(username string, filenames []string) DeleteResponse {
+	// 在这里处理删除文件逻辑
+	// 这里只是一个示例，实际上可能会更复杂
+	return DeleteResponse{
+		Code:         1,
+		DeleteStatus: 1,
+	}
+}
+
+type DownloadResponse struct {
+	Code           int `json:"code"`
+	DownloadStatus int `json:"downloadStatus"`
+}
+
+func DownloadFiles(username string, filenames string) DownloadResponse {
+	// 在这里处理下载文件逻辑
+	// 这里只是一个示例，实际上可能会更复杂
+	return DownloadResponse{
+		Code:           1,
+		DownloadStatus: 1,
+	}
+}
+
+type UploadResponse struct {
+	Code         int `json:"code"`
+	UploadStatus int `json:"uploadStatus"`
+}
+
+func UploadFiles(files []Model.Myfile) UploadResponse {
+	// 将files写入到数据库
+
+	for _, file := range files {
+		var db *sql.DB
+		db, err2 := sql.Open("mysql", "root:1352446@tcp(127.0.0.1:3306)/QtCloudPan")
+		if err2 != nil {
+			panic(err2)
+		}
+		_, err := db.Exec("INSERT INTO myfile (username, url, size, filename, pv, createTime, type) VALUES (?, ?, ?, ?, ?, ?, ?)", file.Username, file.Url, file.Size, file.FileName, file.Pv, file.CreateTime, file.Type)
+		if err != nil {
+			return UploadResponse{
+				Code:         0,
+				UploadStatus: 0,
+			}
+		}
+	}
+
+	return UploadResponse{
+		Code:         1,
+		UploadStatus: 1,
 	}
 }

@@ -1,8 +1,8 @@
 package service
 
 import (
+	"QtCloudPan/internal/Model"
 	"QtCloudPan/internal/repository"
-	"fmt"
 	"sort"
 )
 
@@ -82,9 +82,6 @@ func ListFile(req ListRequest, method string) ListResponse {
 	default:
 		// 默认
 	}
-	fmt.Println(method)
-	fmt.Println(serviceFiles)
-
 	return ListResponse{
 		List: serviceFiles,
 		Code: listResp.Code,
@@ -104,9 +101,47 @@ type ShareResponse struct {
 func ShareFile(req ShareRequest) ShareResponse {
 	// 调用数据访问层的分享逻辑
 	res := repository.ShareFile(req.Username, req.Filename, req.FileMd5)
-	fmt.Println(res)
 	return ShareResponse{
 		Code:        res.Code,
 		ShareStatus: res.ShareStatus,
+	}
+}
+
+// DeleteRequest 删除文件请求
+type DeleteRequest struct {
+	Username  string   `json:"username"`
+	Filenames []string `json:"filenames"`
+}
+
+func DeleteFiles(req DeleteRequest) repository.DeleteResponse {
+	// 调用数据访问层的删除逻辑
+	res := repository.DeleteFiles(req.Username, req.Filenames)
+	return res
+}
+
+func DownloadFiles(username string, filenames string) repository.DownloadResponse {
+	// 调用数据访问层的下载逻辑
+	res := repository.DownloadFiles(username, filenames)
+	return res
+}
+
+type UploadRequest struct {
+	Username string   `json:"username"`
+	Filenams []string `json:"filenames"`
+}
+
+type UploadResponse struct {
+	Code         int `json:"code"`
+	UploadStatus int `json:"uploadStatus"`
+}
+
+func UploadFiles(files []Model.Myfile) UploadResponse {
+
+	// 调用数据访问层的上传逻辑
+	res := repository.UploadFiles(files)
+
+	return UploadResponse{
+		Code:         res.Code,
+		UploadStatus: res.UploadStatus,
 	}
 }

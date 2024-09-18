@@ -1,0 +1,5 @@
+D:/Code/qcode/QcloudObj/cmake-build-debug/CMakeFiles/QcloudObj.dir
+D:/Code/qcode/QcloudObj/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Code/qcode/QcloudObj/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/Code/qcode/QcloudObj/cmake-build-debug/CMakeFiles/QcloudObj_autogen_timestamp_deps.dir
+D:/Code/qcode/QcloudObj/cmake-build-debug/CMakeFiles/QcloudObj_autogen.dir

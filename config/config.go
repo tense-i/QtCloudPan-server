@@ -32,6 +32,7 @@ func LoadConfig() {
 
 	decoder := yaml.NewDecoder(configFile)
 	if err := decoder.Decode(&AppConfig); err != nil {
+
 		log.Fatalf("Failed to parse config file: %v", err)
 	}
 }
